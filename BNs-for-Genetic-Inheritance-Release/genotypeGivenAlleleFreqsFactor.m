@@ -58,8 +58,15 @@ numAlleles = length(alleleFreqs);
 
 % Fill in genotypeFactor.var.  This should be a 1-D row vector.
 % Fill in genotypeFactor.card.  This should be a 1-D row vector.
+genotypeFactor.var = genotypeVar;
 
-genotypeFactor.val = zeros(1, prod(genotypeFactor.card));
-% Replace the zeros in genotypeFactor.val with the correct values.
+n_genotype = nchoosek(numAlleles, 2) + numAlleles;
+genotypeFactor.card = n_genotype;
+
+[allele_ix, ia, ic] = unique(allelesToGenotypes);
+n_genotype_occur = accumarray(ic, 1);
+genotypeFactor.val = prod(alleleFreqs(genotypesToAlleles), 2);
+
+genotypeFactor.val = genotypeFactor.val .* n_genotype_occur;
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  

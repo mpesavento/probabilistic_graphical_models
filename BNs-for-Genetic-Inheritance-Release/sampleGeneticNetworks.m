@@ -6,6 +6,8 @@
 % that your answer matches the solution.  Once your function seems to be
 % working, submit it for the unit test.
 
+load("sampleFactorList.mat")
+
 % Testing phenotypeGivenGenotypeMendelianFactor:
 isDominant = 1;
 genotypeVar = 1;

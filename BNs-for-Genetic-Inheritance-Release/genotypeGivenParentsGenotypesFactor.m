@@ -24,6 +24,7 @@ function genotypeFactor = genotypeGivenParentsGenotypesFactor(numAlleles, genoty
 
 % The number of genotypes is (number of alleles choose 2) + number of 
 % alleles -- need to add number of alleles at the end to account for homozygotes
+n_genotype = nchoosek(numAlleles, 2) + numAlleles;
 
 genotypeFactor = struct('var', [], 'card', [], 'val', []);
 
@@ -58,8 +59,45 @@ genotypeFactor = struct('var', [], 'card', [], 'val', []);
 
 % Fill in genotypeFactor.var.  This should be a 1-D row vector.
 % Fill in genotypeFactor.card.  This should be a 1-D row vector.
+genotypeFactor.var = [genotypeVarChild, genotypeVarParentOne, genotypeVarParentTwo];
+genotypeFactor.card = [n_genotype, n_genotype, n_genotype];
 
 genotypeFactor.val = zeros(1, prod(genotypeFactor.card));
+assignments = IndexToAssignment(1:length(genotypeFactor.val), genotypeFactor.card);
+
+for i = 1:n_genotype:length(assignments)
+    parentOneAlleles = genotypesToAlleles(assignments(i, 2), :);
+    parentTwoAlleles = genotypesToAlleles(assignments(i, 3), :);
+
+    % get the vector of possible allele combinations given both parents
+    a = parentOneAlleles;
+    b = parentTwoAlleles;
+
+    allele_combinations = zeros(4, 2);
+    index = 0;
+    for a = 1:2
+        for b = 1:2
+            index = index+1;
+            allele_combinations(index, :) = sort([parentOneAlleles(a), parentTwoAlleles(b)]);
+        end
+    end
+
+    % find and count the unique allele combinations
+    [unique_allele_combs, ia, ic] = unique(allele_combinations, 'rows');
+    n_genotype_occurs = accumarray(ic, 1);
+
+
+    [q, matching_genotype_idx] = ismember(unique_allele_combs, genotypesToAlleles, 'rows');
+    z = zeros(1, n_genotype);
+    z(matching_genotype_idx) = n_genotype_occurs;
+    % normalize
+    z = z / sum(z);
+    % z
+    % genotypeFactor.val(i:i+n_genotype-1)
+    genotypeFactor.val(i:i+n_genotype-1) = z;
+end
+
 % Replace the zeros in genotypeFactor.val with the correct values.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
