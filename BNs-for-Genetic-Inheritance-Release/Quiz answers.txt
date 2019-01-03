@@ -11,14 +11,34 @@ Q2: prob that Ira has CF given
 3) ben + Robin: 23.72
 2) ben: 24.75
 
-Q3: how many parameters in genotype from parents with 3 alleles?
-216 - wrong
+Q3: with 2 alleles, have 27 entries and 18 parameters.
+how many parameters in genotype from parents with 3 alleles?
+216 - wrong, this is number of entries
+180 -correct:(f.card(1)-1) * prod(f.card(2:end))
+216 CPD entries, if prob of having other genotypes is known, there are 216-(6*6)=180
 
 Q4: how many parameters in the non-decoupled model?
 1212 - wrong
+31
+
+load('sampleFactorList.mat')
+f=sampleFactorList;
+s=0
+for i=1:length(f)
+    s=s+ (f(i).card(1)-1) * prod(f(i).card(2:end))
+end
+
 
 Q5: how many parameters in the decoupled model?
 139 - wrong
+71
+
+load('sampleFactorListDecoupled.mat')
+f=sampleFactorListDecoupled;
+s=0
+for i=1:length(f)
+    s=s+ (f(i).card(1)-1) * prod(f(i).card(2:end))
+end
 
 Q6: probability that next child has CF, given each parent have one F allele observed and neither has CF
 0.5489 - wrong
