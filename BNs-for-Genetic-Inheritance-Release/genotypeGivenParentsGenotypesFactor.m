@@ -86,7 +86,6 @@ for i = 1:n_genotype:length(assignments)
     [unique_allele_combs, ia, ic] = unique(allele_combinations, 'rows');
     n_genotype_occurs = accumarray(ic, 1);
 
-
     [q, matching_genotype_idx] = ismember(unique_allele_combs, genotypesToAlleles, 'rows');
     z = zeros(1, n_genotype);
     z(matching_genotype_idx) = n_genotype_occurs;

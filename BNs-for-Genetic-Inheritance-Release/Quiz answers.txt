@@ -1,0 +1,50 @@
+Quiz answers
+------------
+
+Q1: prob that child of James & Rene has CF
+1) none: 19.7
+3) sandra: 22.22
+2) jason: 29.88
+
+Q2: prob that Ira has CF given
+1) none: 19.7
+3) ben + Robin: 23.72
+2) ben: 24.75
+
+Q3: how many parameters in genotype from parents with 3 alleles?
+216 - wrong
+
+Q4: how many parameters in the non-decoupled model?
+1212 - wrong
+
+Q5: how many parameters in the decoupled model?
+139 - wrong
+
+Q6: probability that next child has CF, given each parent have one F allele observed and neither has CF
+0.5489 - wrong
+0.4672
+
+Q7: SMA, n=number of genes involved, m=number of alleles. How many parameters in table model?
+O(m^(2n)) - correct, 2 alleles per gene, so O(m^2) combinations per gene, and O(M^(2*n)) for n genes
+
+Q8: SMA, n=number of genes involved, m=number of alleles. How many parameters in table model?
+O(mn) - correct
+
+Q9: what can we infer from sigmoid net?
+ -yes, gene A contributes but gene B doesnt
+ -no, allele A1 and A2 make person more likely when both are present (AND is not possible without cross terms for alleles)
+ -no, allele A1 OR A2 make person more likely (OR is not possible without cross terms)
+ -yes, alleles A1 and B1 each independently make a person more likely
+ -yes, A1 more likely B1 less likely (possible by using weights)
+ -no, A1 & B2, or A2 & B1 (XOR)
+ -yes, neither gene A nor B contribute to SMA
+
+
+Q10: spinalMuscularAtrophyBayesNet
+1) no observations: 22.02
+2) ira + robin both have at least 1 M allele: 33.99
+3) ira + robin both have at least 1 M allele and 1 B allele: 68.94
+
+Q11: prob that ira has SMA, given that James and Robin have it
+0.3541 - correct
+
