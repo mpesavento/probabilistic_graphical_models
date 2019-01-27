@@ -49,14 +49,14 @@ if (~isempty(pairwiseModel))
     % uncomment the following line to use the "real" pairwise factor
     % implementation (which you must provide.
     %%%%%%%%%%%%%%%%%%%%%%%%%%%
-    
-    pairwiseFactors = ComputeEqualPairwiseFactors(images, imageModel.K);
-    %pairwiseFactors = ComputePairwiseFactors(images, pairwiseModel, imageModel.K);
+
+    % pairwiseFactors = ComputeEqualPairwiseFactors(images, imageModel.K);
+    pairwiseFactors = ComputePairwiseFactors(images, pairwiseModel, imageModel.K);
 else
     pairwiseFactors = [];
 end
 
-if (~isempty(tripletList))  
+if (~isempty(tripletList))
     tripletFactors = ComputeTripletFactors(images, tripletList, imageModel.K);
 else
     tripletFactors = [];
