@@ -31,7 +31,7 @@ imageModel.ignoreSimilarity = true;
 % [charAcc, wordAcc] = ScoreModel(allWords, imageModel, [], []);
 
 % test part 2
-output = ComputePairwiseFactors(Part2SampleImagesInput, pairwiseModel, imageModel.K)
+output = ComputePairwiseFactors(Part2SampleImagesInput, pairwiseModel, imageModel.K);
 % for i=1:length(Part2SampleImagesInput(1))
 %     assert(output(i).var == Part2SampleFactorsOutput(i).var);
 %     assert(output(i).card == Part2SampleFactorsOutput(i).card);
@@ -47,8 +47,20 @@ output = ComputePairwiseFactors(Part2SampleImagesInput, pairwiseModel, imageMode
 predictions = ComputeWordPredictions(allWords, imageModel, pairwiseModel, []);
 % [charAcc, wordAcc] = ScoreModel(allWords, imageModel, pairwiseModel, []);
 
-%% part 3
 
+%% part 3
+output = ComputeTripletFactors(Part3SampleImagesInput, tripletList, imageModel.K);
+for i=1:length(Part3SampleImagesInput(1))
+    assert(output(i).var == Part3SampleFactorsOutput(i).var);
+    assert(output(i).card == Part3SampleFactorsOutput(i).card);
+
+    u = output(i).val;
+    v = Part3SampleFactorsOutput(i).val;
+    e=0.0001;
+    is_appx_equal = u<=v+e & u>=v-e;
+    assert(sum(is_appx_equal) == length(u));
+
+end
 
 
 

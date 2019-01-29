@@ -30,7 +30,7 @@ factors = repmat(struct('var', [], 'card', [], 'val', []), n - 1, 1);
 for i=1:n-1
     factors(i).var = [i, i+1];
     factors(i).card = [K, K];
-    factors(i).val = reshape(pairwiseModel, 26*26, []);
+    factors(i).val = reshape(pairwiseModel, K*K, []);
 end
 
 end
