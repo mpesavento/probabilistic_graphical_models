@@ -62,6 +62,16 @@ for i=1:length(Part3SampleImagesInput(1))
 
 end
 
+predictions = ComputeWordPredictions(allWords, imageModel, pairwiseModel, tripletList);
 
 
+
+%% part 4
+% run the similarity factors
+% use a word with only 5 letters, to not have it blow up.
+imageModel.ignoreSimilarity = false;
+markov_net = BuildOCRNetwork(allWords{4}, imageModel, pairwiseModel, tripletList);
+
+
+predictions = ComputeWordPredictions(allWords, imageModel, pairwiseModel, tripletList);
 

@@ -23,7 +23,14 @@ if (length(allFactors) <= F)
 end
 
 % Your code here:
-factors = allFactors; %%% REMOVE THIS LINE
+% factors = allFactors; %%% REMOVE THIS LINE
+n = length(allFactors);
 
+sim_scores = zeros(n, 1);
+for i=1:n
+    sim_scores(i) = allFactors(i).val(1);
+end
+[max_sorted, max_ix] = sort(sim_scores, "descend");
+factors = allFactors(max_ix(1:F));
 end
 
