@@ -14,6 +14,7 @@ function EU = SimpleCalcExpectedUtility(I)
 
   % In this function, we assume there is only one utility node.
   F = [I.RandomFactors I.DecisionFactors];
+  D = I.DecisionFactors;
   U = I.UtilityFactors(1);
   EU = [];
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -24,18 +25,52 @@ function EU = SimpleCalcExpectedUtility(I)
 
   % find the factor variables to remove
   all_random_vars = []
-  for i=1:length(I.RandomFactors)
-    all_random_vars = union(all_random_vars, I.RandomFactors(i).var)
+  for i=1:length(F)
+    all_random_vars = union(all_random_vars, F(i).var);
   end
-  eliminate_vars = setdiff(all_random_vars, U.var);
+  all_random_vars;
 
-  parentFactors = VariableElimination(F, eliminate_vars);
-  if length(parentFactors) > 1
-    p = FactorProduct(parentFactors(1), parentFactors(2));
+  eliminate_vars = setdiff(all_random_vars, U.var);
+  networkFactors = VariableElimination(F, eliminate_vars);
+  if length(networkFactors) > 1
+    N = FactorProduct(networkFactors(1), networkFactors(2));
   else
-    p = parentFactors(1)
+    N = networkFactors(1);
   end
-  products = p.val .* U.val
-  EU = sum(products)
+
+  % make sure the variables are aligned
+  assignmentsN = IndexToAssignment(1:length(N.val), N.card);
+  assignmentsU = IndexToAssignment(1:length(U.val), U.card);
+  indxN = AssignmentToIndex(assignmentsN, N.card);
+  indxU = AssignmentToIndex(assignmentsU, U.card);
+
+  % get the sum of the product, aka dot product
+  EU = dot(N.val(indxN), U.val(indxU));
+
+  % products = networkFactors.val(indxN) .* U.val(indxU)
+  % EU = sum(products)
+
+  % if length(networkFactors) > 1
+  %   p = FactorProduct(networkFactors(1), networkFactors(2));
+  % else
+  %   p = networkFactors(1)
+  % end
+  % q = FactorProduct(p, I.DecisionFactors)
+
+  % eliminate_vars = setdiff(all_random_vars, U.var);
+  % parentFactors = VariableElimination(F, eliminate_vars);
+  % if length(parentFactors) > 1
+  %   p = FactorProduct(parentFactors(1), parentFactors(2));
+  % else
+  %   p = parentFactors(1)
+  % end
+
+  % do an assign by index to get the ordering correct here.
+  % use index to assignment? need to reorder variables first
+  % use assigment to index?
+  % assignmentsP = IndexToAssignment(1:length(p.val), p.card)
+  % assignmentsU = IndexToAssignment(1:length(U.val), U.card)
+  % products = q.val .* U.val
+  % EU = sum(products)
 
 end

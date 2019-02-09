@@ -129,6 +129,11 @@ for i=1:length(AllDs)
   I3.DecisionFactors = AllDs(i);
   allEU(i) = SimpleCalcExpectedUtility(I3);
 end
+% allEU =
+% 7.5000
+% 5.5500
+% 2.9500
+% 1.0000
 
 % Get EUF...
 euf = CalculateExpectedUtilityFactor(I3);
