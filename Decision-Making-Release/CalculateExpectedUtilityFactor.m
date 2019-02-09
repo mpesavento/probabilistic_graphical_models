@@ -17,7 +17,9 @@ function EUF = CalculateExpectedUtilityFactor( I )
   % YOUR CODE HERE...
   %
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
-
+%CalculateExpectedUtilityFactor, for one utility function it's 
+%actually very short, you first figure out which variables to 
+%eliminate (bulk of my code, like 5 lines), and then call VariableElimination
 
   
 end  

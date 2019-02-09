@@ -27,7 +27,7 @@ end
 variablesConsidered = 0;
 
 while variablesConsidered < length(Z)
-    
+
     % Using Min-Neighbors where you prefer to eliminate the variable that has
     % the smallest number of edges connected to it. 
     % Everytime you enter the loop, you look at the state of the graph and 
@@ -38,15 +38,15 @@ while variablesConsidered < length(Z)
       idx = Z(i);
       score = sum(edges(idx,:));
       if score > 0 && score < bestScore
-	bestScore = score;
-	bestVariable = idx;
+      	bestScore = score;
+      	bestVariable = idx;
       end
     end
 
     variablesConsidered = variablesConsidered + 1;
     [F, edges] = EliminateVar(F, edges, bestVariable);
-    
+
 end
 
 Fnew = F;
-    
+

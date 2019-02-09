@@ -22,7 +22,7 @@ function EU = SimpleCalcExpectedUtility(I)
   %
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
- 
-  
-  
+
+  parentFactors = VariableElimination(F, [1, 2]);
+
 end

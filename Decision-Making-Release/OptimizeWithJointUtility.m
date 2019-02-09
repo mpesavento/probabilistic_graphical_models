@@ -19,6 +19,7 @@ function [MEU OptimalDecisionRule] = OptimizeWithJointUtility( I )
   % YOUR CODE HERE
   %
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+  MEU = 0;
+  OptimalDecisionRule = I.DecisionFactors(1);
   
 end
