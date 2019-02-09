@@ -59,6 +59,7 @@ X1.val = X1.val / sum(X1.val);
 D = struct('var', [2], 'card', [2], 'val', [1 0]);
 X3 = struct('var', [3,1,2], 'card', [2,2,2], 'val', [4 4 1 1 1 1 4 4]);
 X3 = CPDFromFactor(X3,3);
+% X3 == struct('var', [1,2,3], 'card', [2,2,2], 'val', [0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5]);
 
 % U is now a function of 3 instead of 2.
 U1 = struct('var', [2,3], 'card', [2, 2], 'val', [10, 1, 5, 1]);
@@ -106,6 +107,7 @@ X1.val = X1.val / sum(X1.val);
 D = struct('var', [2,1], 'card', [2,2], 'val', [1,0,0,1]);
 X3 = struct('var', [3,1,2], 'card', [2,2,2], 'val', [4 4 1 1 1 1 4 4]);
 X3 = CPDFromFactor(X3,3);
+% X3 == struct('var', [1,2,3], 'card', [2,2,2], 'val', [0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5]);
 
 % U is now a function of 3 instead of 2.
 U1 = struct('var', [2,3], 'card', [2, 2], 'val', [10, 1, 5, 1]);
@@ -131,7 +133,7 @@ end
 % Get EUF...
 euf = CalculateExpectedUtilityFactor(I3);
 % PrintFactor(euf) =>
-% 1	2	
+%
 % 1	1	5.250000
 % 2	1	2.250000
 % 1	2	0.700000

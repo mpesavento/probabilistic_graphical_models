@@ -22,7 +22,20 @@ function EU = SimpleCalcExpectedUtility(I)
   %
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+  % find the factor variables to remove
+  all_random_vars = []
+  for i=1:length(I.RandomFactors)
+    all_random_vars = union(all_random_vars, I.RandomFactors(i).var)
+  end
+  eliminate_vars = setdiff(all_random_vars, U.var);
 
-  parentFactors = VariableElimination(F, [1, 2]);
+  parentFactors = VariableElimination(F, eliminate_vars);
+  if length(parentFactors) > 1
+    p = FactorProduct(parentFactors(1), parentFactors(2));
+  else
+    p = parentFactors(1)
+  end
+  products = p.val .* U.val
+  EU = sum(products)
 
 end
