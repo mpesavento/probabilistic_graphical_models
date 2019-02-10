@@ -24,11 +24,10 @@ function EU = SimpleCalcExpectedUtility(I)
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
   % find the factor variables to remove
-  all_random_vars = []
+  all_random_vars = [];
   for i=1:length(F)
     all_random_vars = union(all_random_vars, F(i).var);
   end
-  all_random_vars;
 
   eliminate_vars = setdiff(all_random_vars, U.var);
   networkFactors = VariableElimination(F, eliminate_vars);
@@ -39,9 +38,10 @@ function EU = SimpleCalcExpectedUtility(I)
   end
 
   % make sure the variables are aligned
+  [_, mapN] = ismember(N.var, U.var);
   assignmentsN = IndexToAssignment(1:length(N.val), N.card);
   assignmentsU = IndexToAssignment(1:length(U.val), U.card);
-  indxN = AssignmentToIndex(assignmentsN, N.card);
+  indxN = AssignmentToIndex(assignmentsN(:, mapN), N.card);
   indxU = AssignmentToIndex(assignmentsU, U.card);
 
   % get the sum of the product, aka dot product
