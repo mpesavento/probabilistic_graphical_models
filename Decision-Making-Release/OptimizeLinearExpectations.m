@@ -27,12 +27,15 @@ function [MEU OptimalDecisionRule] = OptimizeLinearExpectations( I )
   %
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-  % this is the same as OptimizeWithJointUtility.m
-  Usum = I.UtilityFactors(1);
-  for i = 2:length(I.UtilityFactors)
-    Usum = FactorSum(Usum, I.UtilityFactors(i));
-  end
-  I.UtilityFactors = Usum;
-  [MEU OptimalDecisionRule] = OptimizeMEU(I);
+  % % this is the same as OptimizeWithJointUtility.m
+  % Usum = I.UtilityFactors(1);
+  % for i = 2:length(I.UtilityFactors)
+  %   Usum = FactorSum(Usum, I.UtilityFactors(i));
+  % end
+  % I.UtilityFactors = Usum;
+  % [MEU OptimalDecisionRule] = OptimizeMEU(I);
+
+
+
 
 end
