@@ -26,34 +26,54 @@ function [MEU OptimalDecisionRule] = OptimizeMEU( I )
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    
   MEU = 0;
   OptimalDecisionRule = I.DecisionFactors(1);
-  Dzero = zeros(length(D.val), 1);
-
+  OptimalDecisionRule.val = D.val * 0;
 
   euf = CalculateExpectedUtilityFactor(I);
 
-  % for D with no parents
-  if (length(D.var) == 1)
-    eu = []
-    for i=1:length(D.val)
-      D.val = Dzero;
-      D.val(i) = 1;
-      eu = dot(euf.val, D.val);
-    end
-    [meu, ix] = max(eu);
-    OptimalDecisionRule.val = Dzero;
-    OptimalDecisionRule.val(ix) = 1;
+  %%% my attempt
+  % % for D with no parents
+  % if(length(D.var) == 1)
+  %   [_, ix] = max(euf.val)
+  %   OptimalDecisionRule.val(ix) = 1;
+  % else
+  %   for i=1:length(D.var)
+  %     map(i) = find(EUF.var == D.var(i));
+  %     invMap(i) = find(D.var == EUF.var(i));
+  %   end
+  %   assignEUF = IndexToAssignment(1:length(EUF.val), EUF.card);
+  %   assignD = assignEUF(:, map);
+  %   PAs = AssignmentToIndex(1:prod(D.card(2:end)), D.card(2:end));
+  %   for i=1:size(PAs,1)
+  %       newAssigns = [[1:D.card(1)]', repmat(PAs(i,:), length([1:D.card(1)]),1)];
+  %       ids = AssignmentToIndex(newAssigns(:,invMap), EUF.card);
+  %       [_, id] = max(EUF.val(ids));
+  %       OptimalDecisionRule.val(ids(id)) = 1;
+  %   end
+  % end
+  % F = FactorProduct(OptimalDecisionRule, euf)
+
+  EUF = CalculateExpectedUtilityFactor(I);
+  MEU = 0;
+  D.val = D.val*0;
+  ca=D.card(1);
+  len = length(D.val)/ca;
+  for i = 1:len
+    start = i*ca-ca+1;
+    endd = i*ca;
+    [eu, ix] = max(EUF.val(start:endd));
+    MEU += eu;
+    D.val(start+ix-1) = 1;
   end
+  OptimalDecisionRule = D;
+
 
   % % iterate through possible decision rules
   % assignments = IndexToAssignment(1:length(D.val), D.card);
   % for i=1:size(assignments, 1)
-  %   D.val = Dzero;
+  %   D.val = D.val * 0;
   %   D = SetValueOfAssignment(D, assignments(i, :), 1);
   %   D.val(assignments(i, :)) = 1;
-
-
   % end
-
   % [MEU, max_ix] = max(euf.val .* D.val);
   % OptimalDecisionRule.val(max_ix) = 1;
 

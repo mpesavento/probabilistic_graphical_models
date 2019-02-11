@@ -24,10 +24,7 @@ function EUF = CalculateExpectedUtilityFactor( I )
   U = I.UtilityFactors;
 
   F = [I.RandomFactors I.UtilityFactors];
-  all_random_vars = [];
-  for i=1:length(F)
-    all_random_vars = union(all_random_vars, F(i).var);
-  end
+  all_random_vars = unique(horzcat(F(:).var));
   eliminate_vars = setdiff(all_random_vars, D.var);
   EUF = VariableElimination(F, eliminate_vars);
 
