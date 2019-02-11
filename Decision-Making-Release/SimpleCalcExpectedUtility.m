@@ -33,8 +33,10 @@ function EU = SimpleCalcExpectedUtility(I)
   networkFactors = VariableElimination(F, eliminate_vars);
   if length(networkFactors) > 1
     N = FactorProduct(networkFactors(1), networkFactors(2));
+    % printf("found pair of networkFactors\n")
   else
     N = networkFactors(1);
+    % print("1 networkFactor")
   end
 
   % make sure the variables are aligned

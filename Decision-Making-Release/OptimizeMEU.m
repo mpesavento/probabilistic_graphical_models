@@ -26,5 +26,35 @@ function [MEU OptimalDecisionRule] = OptimizeMEU( I )
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    
   MEU = 0;
   OptimalDecisionRule = I.DecisionFactors(1);
+  Dzero = zeros(length(D.val), 1);
+
+
+  euf = CalculateExpectedUtilityFactor(I);
+
+  % for D with no parents
+  if (length(D.var) == 1)
+    eu = []
+    for i=1:length(D.val)
+      D.val = Dzero;
+      D.val(i) = 1;
+      eu = dot(euf.val, D.val);
+    end
+    [meu, ix] = max(eu);
+    OptimalDecisionRule.val = Dzero;
+    OptimalDecisionRule.val(ix) = 1;
+  end
+
+  % % iterate through possible decision rules
+  % assignments = IndexToAssignment(1:length(D.val), D.card);
+  % for i=1:size(assignments, 1)
+  %   D.val = Dzero;
+  %   D = SetValueOfAssignment(D, assignments(i, :), 1);
+  %   D.val(assignments(i, :)) = 1;
+
+
+  % end
+
+  % [MEU, max_ix] = max(euf.val .* D.val);
+  % OptimalDecisionRule.val(max_ix) = 1;
 
 end

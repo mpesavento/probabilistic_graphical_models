@@ -43,7 +43,7 @@ euf = CalculateExpectedUtilityFactor(I1);
 % All should have the same results: 
 % meu => 7.3000
 % PrintFactor(optdr) => 
-%     2     0
+%     2
 %     1     1
 %     2     0
 
@@ -95,7 +95,7 @@ euf = CalculateExpectedUtilityFactor(I2);
 % OUTPUT
 % meu => 7.5000
 % PrintFactor(optdr) => 
-% 2     0
+% 2
 % 1     1
 % 2     0
 
@@ -110,8 +110,8 @@ X3 = CPDFromFactor(X3,3);
 % X3 == struct('var', [1,2,3], 'card', [2,2,2], 'val', [0.5 0.5 0.5 0.5 0.5 0.5 0.5 0.5]);
 
 % U is now a function of 3 instead of 2.
-% U1 = struct('var', [2,3], 'card', [2, 2], 'val', [10, 1, 5, 1]);
-U1 = struct('var', [3,2], 'card', [2, 2], 'val', [10, 1, 5, 1]);
+U1 = struct('var', [2,3], 'card', [2, 2], 'val', [10, 1, 5, 1]);
+% U1 = struct('var', [3,2], 'card', [2, 2], 'val', [10, 1, 5, 1]);
 
 I3.RandomFactors = [X1 X3];
 I3.DecisionFactors = D;

@@ -17,9 +17,18 @@ function EUF = CalculateExpectedUtilityFactor( I )
   % YOUR CODE HERE...
   %
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  
-%CalculateExpectedUtilityFactor, for one utility function it's 
-%actually very short, you first figure out which variables to 
-%eliminate (bulk of my code, like 5 lines), and then call VariableElimination
+  %CalculateExpectedUtilityFactor, for one utility function it's 
+  %actually very short, you first figure out which variables to 
+  %eliminate (bulk of my code, like 5 lines), and then call VariableElimination
+  D = I.DecisionFactors;
+  U = I.UtilityFactors;
 
-  
-end  
+  F = [I.RandomFactors I.UtilityFactors];
+  all_random_vars = [];
+  for i=1:length(F)
+    all_random_vars = union(all_random_vars, F(i).var);
+  end
+  eliminate_vars = setdiff(all_random_vars, D.var);
+  EUF = VariableElimination(F, eliminate_vars);
+
+end
