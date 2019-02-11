@@ -24,13 +24,26 @@ function [MEU OptimalDecisionRule] = OptimizeMEU( I )
   %     has no parents.
   % 2.  You may find the Matlab/Octave function setdiff useful.
   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    
-  MEU = 0;
-  OptimalDecisionRule = I.DecisionFactors(1);
-  OptimalDecisionRule.val = D.val * 0;
 
-  euf = CalculateExpectedUtilityFactor(I);
+  % see https://github.com/anhncs/Probabilistic-Graphical-Models/blob/master/6.Decision%20Making
+  EUF = CalculateExpectedUtilityFactor(I);
+  MEU = 0;
+  D.val = D.val*0;
+  ca=D.card(1);
+  len = length(D.val)/ca;
+  for i = 1:len
+    start = i*ca-ca+1;
+    endd = i*ca;
+    [eu, ix] = max(EUF.val(start:endd));
+    MEU += eu;
+    D.val(start+ix-1) = 1;
+  end
+  OptimalDecisionRule = D;
+
+
 
   %%% my attempt
+  % euf = CalculateExpectedUtilityFactor(I);
   % % for D with no parents
   % if(length(D.var) == 1)
   %   [_, ix] = max(euf.val)
@@ -51,20 +64,6 @@ function [MEU OptimalDecisionRule] = OptimizeMEU( I )
   %   end
   % end
   % F = FactorProduct(OptimalDecisionRule, euf)
-
-  EUF = CalculateExpectedUtilityFactor(I);
-  MEU = 0;
-  D.val = D.val*0;
-  ca=D.card(1);
-  len = length(D.val)/ca;
-  for i = 1:len
-    start = i*ca-ca+1;
-    endd = i*ca;
-    [eu, ix] = max(EUF.val(start:endd));
-    MEU += eu;
-    D.val(start+ix-1) = 1;
-  end
-  OptimalDecisionRule = D;
 
 
   % % iterate through possible decision rules
