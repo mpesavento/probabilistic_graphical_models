@@ -1,0 +1,54 @@
+Quiz answers
+
+Q1:
+What is the expected utility in the FullI influence diagram? round to nearest tenth
+SimpleCalcExpectedUtility(FullI)
+-686.0 (-685.95)
+
+Q2:
+Add observed evidence, where variable 3 has value 2 (set normalize to True), then run SampleCalcExpectedUtility. What happened to the expected utility?
+
+load fullI.mat
+I = FullI;
+I.RandomFactors = ObserveEvidence(I.RandomFactors, [3 2], 1);
+SimpleCalcExpectedUtility(I)
+-729.24
+utility substantially decreased
+
+
+Q3:
+Why can we explicitly enumerate all possible decision rules, we can
+often not enumerate over all CPDS?
+wrong - We can actually always enumerate over CPDs
+wrong - If there is one choice in a decision rule, we must have one 0
+all choice have a probability of either 1 or 0, where a general CPD is range[0, 1]
+
+Q4:
+Decision node D takes on `d` possible values. It has `m` parents that can each take on `n` possible values. How many decision rules delta_D are there?
+wrong - d(n^m)
+wrong - d(m^n)
+d^(n^m)
+
+Q5:
+Decision node D takes on `d` possible values. It has `m` parents that can each take on `n` possible values. Assume that running Sum-product inference takes O(S) time. what is the run time complexity of running OptimizeMEU?
+O(S + dn^m)
+
+Q6:
+When does it make sense to use OptimizeJointUtility instead of OptimizeLinearExpectations?
+wrong - When the bottleneck in inference is in enumerating the large number of possible assignments to the parents of the utility variables, and each utility variable has a disjoint set of parents.
+
+when there are large factors in the random-variables part of the influence diagram, making inference over the network slow, and there are only a few utility factors, each involving a small number of variables
+
+Q7-9:
+ValuePerfectInformation(TestI0, 1)
+155.97
+
+ValuePerfectInformation(TestI0, 2)
+2.82
+
+ValuePerfectInformation(TestI0, 3)
+846.15
+
+
+
+
